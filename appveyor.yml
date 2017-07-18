@@ -7,9 +7,23 @@ hosts:
 before_build:
 - dotnet restore
 
+build_script:
+- dotnet build -c Release
+
 test_script:
 - dotnet test .\Bonus.Metadata.Test\Bonus.Metadata.Test.csproj
 - dotnet test .\Bonus.Metadata.Sample\Bonus.Metadata.Sample.csproj
 
-cache:
-- '%USERPROFILE%\.nuget\packages'
+after_test:
+- dotnet pack .\Bonus.Metadata -c Release --include-symbols
+
+artifacts:
+- path: '**\*.nupkg'
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: l9UT17HFpeTy7wfi3wlVvSr1Z185S/1ck319wtZIXaDUBUwRn86jVgRusl4bA0Wm
+  artifact: /.*\.nupkg/
+  on:
+    appveyor_repo_tag: true
