@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Bonus
 {
@@ -11,12 +12,14 @@ namespace Bonus
 
         internal MetadataStore Store => _store;
 
-        public T Read<T>(Type type, string key) {
+        public bool Read<T>(Type type, string key, out T value) {
             if (_store.TryGetValue(type, out var metaEntityStore) &&
                 metaEntityStore.TryGetValue(key, out var objectValue)) {
-                return (T)objectValue;
+                value = (T)objectValue;
+                return true;
             }
-            return default(T);
+            value = default(T);
+            return false;
         }
     }
 }

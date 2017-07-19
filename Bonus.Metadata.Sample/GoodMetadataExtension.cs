@@ -14,7 +14,10 @@ namespace Bonus
         }
 
         public static bool IsGood(this Metadata metadata, Type type) {
-            return metadata.Read<bool>(type, Key);
+            if (metadata.Read<bool>(type, Key, out var value)) {
+                return value;
+            }
+            return true;
         }
     }
 }
