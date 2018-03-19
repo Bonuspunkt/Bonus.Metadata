@@ -1,0 +1,24 @@
+sudo: required
+dist: trusty
+os: linux
+language: bash
+
+install:
+  # .net core 1.x
+  - sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys B02C46DF417A0893
+  - sudo apt-get update
+  - sudo apt-get install dotnet-dev-1.1.0
+  # .net core 2.x
+  - curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+  - sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+  - sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-trusty-prod trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
+  - sudo apt-get install apt-transport-https
+  - sudo apt-get update
+  - sudo apt-get install dotnet-sdk-2.1.101
+  - export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1
+  - export DOTNET_CLI_TELEMETRY_OPTOUT=1
+script:
+  - dotnet build -c Release
+  - dotnet test ./Bonus.Metadata.Test/Bonus.Metadata.Test.csproj -c Release
+  - dotnet test ./Bonus.Metadata.Sample/Bonus.Metadata.Sample.csproj -c Release
