@@ -2,12 +2,14 @@ using Xunit;
 
 namespace Bonus
 {
-    public class GoodMetadataExtensionTest {
-        
-        class Entity {}
+    public class GoodMetadataExtensionTest
+    {
+
+        class Entity { }
 
         [Fact]
-        public void Lifecycle() {
+        public void Lifecycle()
+        {
             var metadata = new Metadata();
             new MetadataBuilder()
                 .RegisterEntity<Entity>(
@@ -19,7 +21,8 @@ namespace Bonus
         }
 
         [Fact]
-        public void Lifecycle2() {
+        public void Lifecycle2()
+        {
             var metadata = new Metadata();
             new MetadataBuilder()
                 .RegisterEntity<Entity>(
@@ -31,7 +34,7 @@ namespace Bonus
                 .ApplyTo(metadata);
 
             Assert.False(metadata.IsGood<Entity>());
-            
+
         }
     }
 }

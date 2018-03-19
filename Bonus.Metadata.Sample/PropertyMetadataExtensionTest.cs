@@ -3,14 +3,17 @@ using Xunit;
 
 namespace Bonus
 {
-    public class PropertyMetadataExtensionTest {
-        
-        class Entity {
+    public class PropertyMetadataExtensionTest
+    {
+
+        class Entity
+        {
             public DateTime DateTime { get; set; }
         }
 
         [Fact]
-        public void Lifecycle() {
+        public void Lifecycle()
+        {
             var metadata = new Metadata();
             new MetadataBuilder()
                 .RegisterEntity<Entity>(

@@ -1,7 +1,7 @@
 namespace Bonus
 {
 
-        interface IEntity {}
+    interface IEntity { }
 
-        class Entity : IEntity {}
+    class Entity : IEntity { }
 }

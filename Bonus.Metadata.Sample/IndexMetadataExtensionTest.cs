@@ -4,26 +4,32 @@ using Xunit;
 
 namespace Bonus
 {
-    public class IndexMetadataExtensionTest {
+    public class IndexMetadataExtensionTest
+    {
 
-        interface IEntity {
+        interface IEntity
+        {
             DateTime DateTime { get; set; }
         }
-        class Entity {
+        class Entity
+        {
             public DateTime DateTime { get; set; }
         }
 
-        interface A {
+        interface A
+        {
             int Number { get; set; }
         }
 
-        class AEntity : Entity, A {
-            public int Number {get;set;}
+        class AEntity : Entity, A
+        {
+            public int Number { get; set; }
         }
 
 
         [Fact]
-        public void Lifecycle() {
+        public void Lifecycle()
+        {
             var metadata = new Metadata();
             new MetadataBuilder()
                 .RegisterEntity<IEntity>(e => e.Index(en => en.DateTime, 1))
